@@ -75,7 +75,7 @@ String currentCount = "";
 
 void setup() {
   // start serial port:
-  Serial.begin(57600);
+  Serial.begin(9600);
 
   pinMode(printer_Ground, OUTPUT);
   digitalWrite(printer_Ground, LOW);  // Just a reference ground, not power
@@ -183,9 +183,13 @@ void loop() {
   if (currentCount != previousCount) {
 
     printer.wake();
+    printer.setDefault();
     printer.underlineOff();
+    printer.justify('C');
     printer.println("CosmX clients installed:");
+    printer.boldOn();
     printer.print(currentCount);
+    printer.boldOff();
     printer.feed(3);
     printer.sleep();
   } else {
